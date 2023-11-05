@@ -5,6 +5,36 @@ window.addEventListener('load', function() {
   });
 });
 
+
+ajaxx = (response) => {
+  const $placesSection = $('section.places');
+
+  response.forEach(function(placeData) {
+    const $article = $('<article>');
+
+    const $titleBox = $('<div class="title_box">');
+    $titleBox.append('<h2>' + placeData.name + '</h2>');
+    $titleBox.append('<div class="price_by_night">$' + placeData.price_by_night + '</div>');
+    $article.append($titleBox);
+
+    const $infoBox = $('<div class="information">');
+    $infoBox.append('<div class="max_guest">' + placeData.max_guest + ' Guest' + (placeData.max_guest !== 1 ? 's' : '') + '</div>');
+    $infoBox.append('<div class="number_rooms">' + placeData.number_rooms + ' Bedroom' + (placeData.number_rooms !== 1 ? 's' : '') + '</div>');
+    $infoBox.append('<div class="number_bathrooms">' + placeData.number_bathrooms + ' Bathroom' + (placeData.number_bathrooms !== 1 ? 's' : '') + '</div>');
+    $article.append($infoBox);
+
+    if (placeData.user) {
+      $article.append('<div class="user"><b>Owner:</b> ' + placeData.user.first_name + ' ' + placeData.user.last_name + '</div>');
+    }
+
+    if (placeData.description) {
+      $article.append('<div class="description">' + placeData.description + '</div>');
+    }
+
+    $placesSection.append($article);
+  });
+};
+
 $(document).ready(function () {
   const url = "http://0.0.0.0:5001/api/v1/status/";
 
@@ -51,38 +81,39 @@ $(document).ready(function () {
             contentType: 'application/json',
             dataType: 'json',
             success: function(response) {
+              
+              ajaxx(response);
+              // const $placesSection = $('section.places');
           
-              const $placesSection = $('section.places');
+              // response.forEach(function(placeData) {
+              //   const $article = $('<article>');
           
-              response.forEach(function(placeData) {
-                const $article = $('<article>');
+              //   const $titleBox = $('<div class="title_box">');
+              //   $titleBox.append('<h2>' + placeData.name + '</h2>');
+              //   $titleBox.append('<div class="price_by_night">$' + placeData.price_by_night + '</div>');
+              //   $article.append($titleBox);
           
-                const $titleBox = $('<div class="title_box">');
-                $titleBox.append('<h2>' + placeData.name + '</h2>');
-                $titleBox.append('<div class="price_by_night">$' + placeData.price_by_night + '</div>');
-                $article.append($titleBox);
+              //   const $infoBox = $('<div class="information">');
+              //   $infoBox.append('<div class="max_guest">' + placeData.max_guest + ' Guest' + (placeData.max_guest !== 1 ? 's' : '') + '</div>');
+              //   $infoBox.append('<div class="number_rooms">' + placeData.number_rooms + ' Bedroom' + (placeData.number_rooms !== 1 ? 's' : '') + '</div>');
+              //   $infoBox.append('<div class="number_bathrooms">' + placeData.number_bathrooms + ' Bathroom' + (placeData.number_bathrooms !== 1 ? 's' : '') + '</div>');
+              //   $article.append($infoBox);
           
-                const $infoBox = $('<div class="information">');
-                $infoBox.append('<div class="max_guest">' + placeData.max_guest + ' Guest' + (placeData.max_guest !== 1 ? 's' : '') + '</div>');
-                $infoBox.append('<div class="number_rooms">' + placeData.number_rooms + ' Bedroom' + (placeData.number_rooms !== 1 ? 's' : '') + '</div>');
-                $infoBox.append('<div class="number_bathrooms">' + placeData.number_bathrooms + ' Bathroom' + (placeData.number_bathrooms !== 1 ? 's' : '') + '</div>');
-                $article.append($infoBox);
+              //   if (placeData.user) {
+              //     $article.append('<div class="user"><b>Owner:</b> ' + placeData.user.first_name + ' ' + placeData.user.last_name + '</div>');
+              //   }
           
-                if (placeData.user) {
-                  $article.append('<div class="user"><b>Owner:</b> ' + placeData.user.first_name + ' ' + placeData.user.last_name + '</div>');
-                }
+              //   if (placeData.description) {
+              //     $article.append('<div class="description">' + placeData.description + '</div>');
+              //   }
           
-                if (placeData.description) {
-                  $article.append('<div class="description">' + placeData.description + '</div>');
-                }
-          
-                $placesSection.append($article);
-              });
+              //   $placesSection.append($article);
+              // });
             },
           });
 
         } else {
-          let arrayAmenities = selectedAmenities.split(', ')
+          // let arrayAmenities = selectedAmenities.split(', ')
           let selectedAmenitiesArray = selectedAmenities.split(', ');
           
           selectedAmenitiesArray.forEach(function (name) {
@@ -99,33 +130,36 @@ $(document).ready(function () {
             contentType: 'application/json',
             dataType: 'json',
             success: function(response) {
+
+              ajaxx(response);
+              // ajaxx = (response) => {
+              //   const $placesSection = $('section.places');
           
-              const $placesSection = $('section.places');
-          
-              response.forEach(function(placeData) {
-                const $article = $('<article>');
-          
-                const $titleBox = $('<div class="title_box">');
-                $titleBox.append('<h2>' + placeData.name + '</h2>');
-                $titleBox.append('<div class="price_by_night">$' + placeData.price_by_night + '</div>');
-                $article.append($titleBox);
-          
-                const $infoBox = $('<div class="information">');
-                $infoBox.append('<div class="max_guest">' + placeData.max_guest + ' Guest' + (placeData.max_guest !== 1 ? 's' : '') + '</div>');
-                $infoBox.append('<div class="number_rooms">' + placeData.number_rooms + ' Bedroom' + (placeData.number_rooms !== 1 ? 's' : '') + '</div>');
-                $infoBox.append('<div class="number_bathrooms">' + placeData.number_bathrooms + ' Bathroom' + (placeData.number_bathrooms !== 1 ? 's' : '') + '</div>');
-                $article.append($infoBox);
-          
-                if (placeData.user) {
-                  $article.append('<div class="user"><b>Owner:</b> ' + placeData.user.first_name + ' ' + placeData.user.last_name + '</div>');
-                }
-          
-                if (placeData.description) {
-                  $article.append('<div class="description">' + placeData.description + '</div>');
-                }
-          
-                $placesSection.append($article);
-              });
+              //   response.forEach(function(placeData) {
+              //     const $article = $('<article>');
+            
+              //     const $titleBox = $('<div class="title_box">');
+              //     $titleBox.append('<h2>' + placeData.name + '</h2>');
+              //     $titleBox.append('<div class="price_by_night">$' + placeData.price_by_night + '</div>');
+              //     $article.append($titleBox);
+            
+              //     const $infoBox = $('<div class="information">');
+              //     $infoBox.append('<div class="max_guest">' + placeData.max_guest + ' Guest' + (placeData.max_guest !== 1 ? 's' : '') + '</div>');
+              //     $infoBox.append('<div class="number_rooms">' + placeData.number_rooms + ' Bedroom' + (placeData.number_rooms !== 1 ? 's' : '') + '</div>');
+              //     $infoBox.append('<div class="number_bathrooms">' + placeData.number_bathrooms + ' Bathroom' + (placeData.number_bathrooms !== 1 ? 's' : '') + '</div>');
+              //     $article.append($infoBox);
+            
+              //     if (placeData.user) {
+              //       $article.append('<div class="user"><b>Owner:</b> ' + placeData.user.first_name + ' ' + placeData.user.last_name + '</div>');
+              //     }
+            
+              //     if (placeData.description) {
+              //       $article.append('<div class="description">' + placeData.description + '</div>');
+              //     }
+            
+              //     $placesSection.append($article);
+              //   });
+              // };
             },
           });
 
@@ -141,33 +175,33 @@ $(document).ready(function () {
     contentType: 'application/json',
     dataType: 'json',
     success: function(response) {
+      ajaxx(response);
+      // const $placesSection = $('section.places');
   
-      const $placesSection = $('section.places');
+      // response.forEach(function(placeData) {
+      //   const $article = $('<article>');
   
-      response.forEach(function(placeData) {
-        const $article = $('<article>');
+      //   const $titleBox = $('<div class="title_box">');
+      //   $titleBox.append('<h2>' + placeData.name + '</h2>');
+      //   $titleBox.append('<div class="price_by_night">$' + placeData.price_by_night + '</div>');
+      //   $article.append($titleBox);
   
-        const $titleBox = $('<div class="title_box">');
-        $titleBox.append('<h2>' + placeData.name + '</h2>');
-        $titleBox.append('<div class="price_by_night">$' + placeData.price_by_night + '</div>');
-        $article.append($titleBox);
+      //   const $infoBox = $('<div class="information">');
+      //   $infoBox.append('<div class="max_guest">' + placeData.max_guest + ' Guest' + (placeData.max_guest !== 1 ? 's' : '') + '</div>');
+      //   $infoBox.append('<div class="number_rooms">' + placeData.number_rooms + ' Bedroom' + (placeData.number_rooms !== 1 ? 's' : '') + '</div>');
+      //   $infoBox.append('<div class="number_bathrooms">' + placeData.number_bathrooms + ' Bathroom' + (placeData.number_bathrooms !== 1 ? 's' : '') + '</div>');
+      //   $article.append($infoBox);
   
-        const $infoBox = $('<div class="information">');
-        $infoBox.append('<div class="max_guest">' + placeData.max_guest + ' Guest' + (placeData.max_guest !== 1 ? 's' : '') + '</div>');
-        $infoBox.append('<div class="number_rooms">' + placeData.number_rooms + ' Bedroom' + (placeData.number_rooms !== 1 ? 's' : '') + '</div>');
-        $infoBox.append('<div class="number_bathrooms">' + placeData.number_bathrooms + ' Bathroom' + (placeData.number_bathrooms !== 1 ? 's' : '') + '</div>');
-        $article.append($infoBox);
+      //   if (placeData.user) {
+      //     $article.append('<div class="user"><b>Owner:</b> ' + placeData.user.first_name + ' ' + placeData.user.last_name + '</div>');
+      //   }
   
-        if (placeData.user) {
-          $article.append('<div class="user"><b>Owner:</b> ' + placeData.user.first_name + ' ' + placeData.user.last_name + '</div>');
-        }
+      //   if (placeData.description) {
+      //     $article.append('<div class="description">' + placeData.description + '</div>');
+      //   }
   
-        if (placeData.description) {
-          $article.append('<div class="description">' + placeData.description + '</div>');
-        }
-  
-        $placesSection.append($article);
-      });
+      //   $placesSection.append($article);
+      // });
     },
   });
 
